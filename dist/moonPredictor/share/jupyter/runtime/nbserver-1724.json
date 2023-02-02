@@ -1,0 +1,12 @@
+{
+  "base_url": "/",
+  "hostname": "localhost",
+  "notebook_dir": "E:\\CALLISTO\\Codes",
+  "password": false,
+  "pid": 1724,
+  "port": 8888,
+  "secure": false,
+  "sock": "",
+  "token": "9ee11283e6e5f932d2b5238a42a07b3e08be59073cb52b38",
+  "url": "http://localhost:8888/"
+}
