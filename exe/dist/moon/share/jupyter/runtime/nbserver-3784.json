@@ -1,0 +1,12 @@
+{
+  "base_url": "/",
+  "hostname": "localhost",
+  "notebook_dir": "D:\\Moon\\code",
+  "password": false,
+  "pid": 3784,
+  "port": 8888,
+  "secure": false,
+  "sock": "",
+  "token": "fe2af91f8fc856e5384ac3371cb3c65814498b31fec22415",
+  "url": "http://localhost:8888/"
+}

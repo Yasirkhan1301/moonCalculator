@@ -25,7 +25,7 @@ import webbrowser
 from datetime import datetime
 
 
-# In[150]:
+# In[2]:
 
 
 class PDF(FPDF):
@@ -38,11 +38,13 @@ class PDF(FPDF):
         # Page number
         self.cell(270, 10, 'Computer Generated' , 0, 0, 'R')
 class MoonCalc(FPDF):
-    def __init__(self,file_path,date,Month,year):
-            self.path = file_path
-            self.date = date
-            self.month = Month
-            self.year = year
+    def __init__(self,file_path,date,Month,year,dst):
+            self.path = file_path.replace('"','')
+            self.date = date.replace('"','')
+            self.month = Month.replace('"','')
+            self.year = year.replace('"','')
+            if dst != None:
+                self.dst = dst.replace('"','')
     def data(self,*args):
         def set_axis(df):
             values = ["year","h","cd","conj",
@@ -212,18 +214,21 @@ class MoonCalc(FPDF):
 #         for line in lines:pdf.cell(297, h, txt = line,ln = 1, align = 'L') 
         sp = "  "
         pdf.multi_cell(280,h,txt = ls[0]+sp+ls[1]+sp+ls[2]+sp+ls[3]+sp+sp+ls[4]+sp+ls[5], align = 'L')
-        pdf.output('tuto1.pdf','F') # save pdf
-        webbrowser.open_new('tuto1.pdf') # open pdf in browser  
+        if self.dst:
+            pdf.output(self.dst+"\\"+Date+".pdf",'F')
+        else:
+            pdf.output(Date+'.pdf','F') # save pdf
+        webbrowser.open_new(Date+'.pdf') # open pdf in browser  
         pdf.close()
     def csv(self,loc):
         df = set_date()
         df.to_csv(loc+self.date+".csv",index = False)        #save csv
 
 
-# In[151]:
+# In[ ]:
 
 
-# path = "..\\Cities data"
+# path = "..\\moon data"
 # date = "2023-02-21"
 # month = "SHABAN"
 # year = "1444"
@@ -231,6 +236,19 @@ path = input("Input data directory wrt code file: ")
 date = input("Date: ")
 month = input("Islamic Month: ")
 year = input("Islamic year: ")
-Moon = MoonCalc(path,date,month,year +" AH")
+dst = input("Destination: ")
+Moon = MoonCalc(path,date,month,year +" AH",dst)
 Moon.pdf()
+
+
+# In[ ]:
+
+
+
+
+
+# In[ ]:
+
+
+
 
