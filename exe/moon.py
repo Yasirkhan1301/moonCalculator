@@ -23,9 +23,10 @@ import os
 from fpdf import FPDF
 import webbrowser
 from datetime import datetime
+import time
 
 
-# In[2]:
+# In[17]:
 
 
 class PDF(FPDF):
@@ -37,7 +38,7 @@ class PDF(FPDF):
         self.set_font('Arial', 'I', 8)
         # Page number
         self.cell(270, 10, 'Computer Generated' , 0, 0, 'R')
-class MoonCalc(FPDF):
+class MoonCalc():
     def __init__(self,file_path,date,Month,year,dst):
             self.path = file_path.replace('"','')
             self.date = date.replace('"','')
@@ -132,8 +133,7 @@ class MoonCalc(FPDF):
                
                     
                 return dfd
-        else:
-            return dfd
+        return dfd
     def jiwani(self):
         date = self.date
         dfs = self.all_files()
@@ -142,6 +142,8 @@ class MoonCalc(FPDF):
             if dfs.loc[date].empty == False:
                 dfs = dfs.loc[date].sort_values(['Station'])
                 dfs = dfs.loc[dfs.Station == "Jiwani"]
+            else:
+                print("Jiwani.txt file does not exist")
         return(dfs)# return df with jiwani row only
     def pdf(self):
         Format = "Arial"        
@@ -152,10 +154,13 @@ class MoonCalc(FPDF):
                                       'cat':'CRITERION   '}
         df = pd.DataFrame()
         df = self.calculate()
-        if df.empty == True: return print("Nothing Found")
+        if df.empty == True: return print("Date not Found") 
         jiwani = self.jiwani()
-        dt = str(jiwani.conj_time.dt.strftime("%d-%m-%Y").values[0])
-        tm = str(jiwani.conj_time.dt.strftime("%H:%M:%S").values[0])
+        try:
+            dt = str(jiwani.conj_time.dt.strftime("%d-%m-%Y").values[0])
+            tm = str(jiwani.conj_time.dt.strftime("%H:%M:%S").values[0])
+        except:
+            return print("Jiwani.txt does not exist")
         Date = datetime.strptime(self.date,"%Y-%m-%d")
         Date =Date.strftime("%d-%m-%Y")
         age = jiwani.age.values[0].split(" ")
@@ -216,10 +221,10 @@ class MoonCalc(FPDF):
         pdf.multi_cell(280,h,txt = ls[0]+sp+ls[1]+sp+ls[2]+sp+ls[3]+sp+sp+ls[4]+sp+ls[5], align = 'L')
         if self.dst:
             pdf.output(self.dst+"\\"+Date+".pdf",'F')
+            webbrowser.open_new(self.dst+"\\"+Date+'.pdf')
         else:
             pdf.output(Date+'.pdf','F') # save pdf
-        webbrowser.open_new(Date+'.pdf') # open pdf in browser  
-        pdf.close()
+            webbrowser.open_new(Date+'.pdf') # open pdf in browser  
     def csv(self,loc):
         df = set_date()
         df.to_csv(loc+self.date+".csv",index = False)        #save csv
@@ -229,7 +234,7 @@ class MoonCalc(FPDF):
 
 
 # path = "..\\moon data"
-# date = "2023-02-21"
+# date = "2023-02-25"
 # month = "SHABAN"
 # year = "1444"
 path = input("Input data directory wrt code file: ")
@@ -238,13 +243,11 @@ month = input("Islamic Month: ")
 year = input("Islamic year: ")
 dst = input("Destination: ")
 Moon = MoonCalc(path,date,month,year +" AH",dst)
-Moon.pdf()
-
-
-# In[ ]:
-
-
-
+try:
+    Moon.pdf()
+except:
+   time.sleep(10.0) 
+   print("Something is wrong")
 
 
 # In[ ]:
