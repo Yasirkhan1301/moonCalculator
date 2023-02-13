@@ -1,0 +1,27 @@
+{
+  "load_extensions": {
+    "nbextensions_configurator/config_menu/main": true,
+    "contrib_nbextensions_help_item/main": true,
+    "codefolding/main": true,
+    "scroll_down/main": true,
+    "autoscroll/main": true,
+    "cell_filter/cell_filter": false,
+    "code_prettify/code_prettify": true,
+    "varInspector/main": true,
+    "jupyterlab-plotly/extension": true,
+    "jupyter-js-widgets/extension": true
+  },
+  "scrollDownIsEnabled": false,
+  "autoscroll_show_button": true,
+  "autoscroll_set_on_load": true,
+  "autoscroll_starting_threshold": "100",
+  "Notebook": {
+    "Header": true,
+    "Toolbar": true
+  },
+  "Cell": {
+    "cm_config": {
+      "lineNumbers": false
+    }
+  }
+}
