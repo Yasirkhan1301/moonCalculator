@@ -14,7 +14,7 @@
 #!pip3 install <package name> 
 
 
-# In[ ]:
+# In[5]:
 
 
 import pandas as pd
@@ -25,7 +25,7 @@ import webbrowser
 from datetime import datetime
 
 
-# In[3]:
+# In[6]:
 
 
 class PDF(FPDF):
@@ -229,24 +229,25 @@ class MoonCalc():
         df.to_csv(loc+self.date+".csv",index = False)        #save csv
 
 
-# In[4]:
+# In[7]:
 
 
-# path = "..\\moon data"
-# date = "2023-02-25"
-# month = "SHABAN"
-# year = "1444"
 def executable():
-    path = input("Input data directory wrt code file: ")
-    date = input("Date: ")
-    month = input("Islamic Month: ")
+    # path = "..\\moon data"
+    # date = "2023-02-25"
+    # month = "SHABAN"
+    # year = "1444"
+    path = input("Input data directory(Drag and drop): ")
+    dst = input("Output file destination(Drag and drop): ")
+    date = input("Date (yy-mm-dd): ")
+    month = input("Islamic Month(Upper case): ")
     year = input("Islamic year: ")
-    dst = input("Destination: ")
     Moon = MoonCalc(path,date,month,year +" AH",dst)
     try:
         Moon.pdf()
     except:
        print("Something is wrong")
+       
 
 
 # In[ ]:
@@ -254,6 +255,8 @@ def executable():
 
 while True:
     executable()
+    print("Restarting...")
+    print("")
 
 
 # In[ ]:
