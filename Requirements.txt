@@ -1,0 +1,7 @@
+1. A GUI base software that run already built exe of moon calculator in background
+
+2. CLI program need inputs which will be filled with the input values in text box 
+
+3. This CLI based software generate PDF that automatically opens in browser
+
+4. A button will show "Generate PDF" to execute the program in background 
